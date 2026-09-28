@@ -260,12 +260,12 @@ html[data-theme="dark"] .tag-sec{color:#22d3ee;}
 }
 .lecture-item.locked{opacity:.75;cursor:not-allowed;}
 .lecture-item.locked:hover{transform:none;border-color:var(--border);}
-.status-chip{font-size:.75rem;font-weight:800;padding:.25rem .8rem;border-radius:999px;}
+.status-chip{font-size:.75rem;font-weight:800;padding:.25rem .8rem;border-radius:999px;white-space:nowrap;}
 .status-open{background:rgba(34,197,94,.16);color:#16a34a;}
 .status-soon{background:rgba(245,158,11,.16);color:#d97706;}
 
 /* ============================================
-   صفحة المحاضرة الأولى
+   صفحات المحاضرات
 ============================================ */
 .lecture-hero{
   background:var(--grad);color:#fff;border-radius:22px;
@@ -403,7 +403,7 @@ td b{color:var(--primary);}
 .btn-watch:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(255,0,51,.4);}
 
 /* ============================================
-   الفوتر + الباركود + المشاركة
+   الفوتر + الباركود + واتساب
 ============================================ */
 .footer{
   background:var(--bg-card);border-top:1px solid var(--border);
@@ -421,13 +421,13 @@ td b{color:var(--primary);}
 }
 .qr-box img{width:140px;height:140px;border-radius:10px;background:#fff;padding:6px;}
 .qr-box span{font-size:.82rem;font-weight:700;color:var(--text-soft);}
-.share-btn{
-  background:var(--grad);color:#fff;border:none;border-radius:14px;
+.wa-btn{
+  background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:14px;
   padding:.9rem 1.8rem;font-family:inherit;font-weight:800;font-size:1rem;
-  cursor:pointer;transition:all .3s ease;box-shadow:0 6px 20px rgba(79,70,229,.35);
+  cursor:pointer;transition:all .3s ease;box-shadow:0 6px 20px rgba(37,211,102,.35);
   display:inline-flex;align-items:center;gap:.5rem;
 }
-.share-btn:hover{transform:translateY(-3px) scale(1.03);}
+.wa-btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 12px 30px rgba(37,211,102,.45);}
 
 /* التوست */
 .toast{
@@ -455,6 +455,7 @@ td b{color:var(--primary);}
   th,td{padding:.6rem .7rem;font-size:.85rem;}
   .calc-keys{gap:.45rem;}
   .lecture-item:hover{transform:none;}
+  .status-chip{width:100%;text-align:center;}
 }
 </style>
 <base target="_blank">
@@ -666,8 +667,8 @@ td b{color:var(--primary);}
   </div>
 </section>
 
-<!-- ============ صفحة المحاضرة الأولى ============ -->
-<section class="page" id="page-lecture">
+<!-- ============ صفحة المحاضرة الأولى - المحاسبة المالية ============ -->
+<section class="page" id="page-lecture-acc">
   <div class="container">
     <button class="back-btn" onclick="goPage('courses')">→ رجوع للمواد</button>
 
@@ -883,14 +884,14 @@ td b{color:var(--primary);}
         <div class="quiz-feedback"></div>
       </div>
 
-      <div class="quiz-score" id="quizScore"></div>
+      <div class="quiz-score" id="quizScoreAcc"></div>
     </div>
 
     <!-- كورسات وفيديو -->
     <div class="content-block">
       <h3>🎬 كورسات وأساسيات للفهم العميق</h3>
       <div class="video-card">
-        <div class="video-thumb" onclick="openVideo()">
+        <div class="video-thumb" onclick="openVideo('acc')">
           <img src="https://img.youtube.com/vi/IyN-mvmXpMk/maxresdefault.jpg" alt="شرح المحاسبة المالية للمبتدئين" onerror="this.src='https://img.youtube.com/vi/IyN-mvmXpMk/hqdefault.jpg'">
           <div class="play-overlay">
             <div class="play-btn">
@@ -903,7 +904,230 @@ td b{color:var(--primary);}
             <h4>شرح المحاسبة المالية للمبتدئين - المحاضرة الأولى</h4>
             <p>فيديو تأسيسي يشرح المفاهيم الأساسية للمحاسبة بشكل مبسط</p>
           </div>
-          <button class="btn-watch" onclick="openVideo()">▶ مشاهدة مباشرة</button>
+          <button class="btn-watch" onclick="openVideo('acc')">▶ مشاهدة مباشرة</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ صفحة المحاضرة الأولى - إدارة الأعمال ============ -->
+<section class="page" id="page-lecture-bus">
+  <div class="container">
+    <button class="back-btn" onclick="goPage('courses')">→ رجوع للمواد</button>
+
+    <div class="lecture-hero">
+      <h2>💼 المحاضرة الأولى - مبادئ إدارة الأعمال</h2>
+      <p>د/ هدى محمد عبد العال | تعريفات الإدارة، المنظومة، وظائف المنظمة، والبيئة المحيطة</p>
+    </div>
+
+    <!-- مقدمة وتعريفات الإدارة -->
+    <div class="content-block">
+      <h3>📚 مقدمة وتعريفات الإدارة</h3>
+
+      <p class="def-text">
+        <b>تعريف فريدريك تايلور (Frederick Taylor):</b>
+        الإدارة هي <span class="hl hl-asset">المعرفة الصحيحة</span> لما يُراد أن يقوم به الأفراد، ثم <span class="hl hl-capital">التأكد</span> من أنهم يؤدونه بأحسن الطرق وأرخص التكاليف. ويتركز مفهوم تايلور على <span class="hl hl-profit">إنجاز الأعمال عبر الآخرين</span> وعلى معيار <span class="hl hl-client">الكفاءة</span> كأساس للحكم على الأداء.
+      </p>
+
+      <p class="def-text">
+        <b>تعريف هنري فايول (Henri Fayol):</b>
+        <span class="hl hl-manager">(أن تدير)</span> أي أن تتنبأ وتخطط (Forecast and Plan)، وتنظم (Organize)، وتصدر الأوامر (Command)، وتنسق (Coordinate)، وتراقب (Control). وهو أول تعريف <span class="hl hl-bank">منهجي شامل</span> يصف الإدارة كعملية متكاملة من الوظائف الخمس.
+      </p>
+
+      <div class="def-grid">
+        <div class="def-card">
+          <h4>🎯 ما الجديد عند تايلور؟</h4>
+          <ul>
+            <li>الاعتماد على إنجاز الأعمال عبر الآخرين</li>
+            <li>معيار الكفاءة (أحسن طريقة وأرخص تكلفة)</li>
+            <li>المعرفة الصحيحة المسبقة بالمهام المطلوبة</li>
+          </ul>
+        </div>
+        <div class="def-card green">
+          <h4>📋 وظائف فايول الخمس للإدارة</h4>
+          <ul>
+            <li>التنبؤ والتخطيط (Forecast &amp; Plan)</li>
+            <li>التنظيم (Organize)</li>
+            <li>إصدار الأوامر (Command)</li>
+            <li>التنسيق (Coordinate)</li>
+            <li>المراقبة (Control)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- مفهوم المنظومة -->
+    <div class="content-block">
+      <h3>🏢 مفهوم المنظومة (Organization)</h3>
+      <p class="def-text">
+        المنظومة هي <span class="hl hl-asset">كيان اقتصادي واجتماعي ديناميكي</span> قائم بذاته، يتكون من مجموعة أفراد يتفاعلون معاً بشكل منظم وفق <span class="hl hl-capital">هيكل تنظيمي داخلي</span>، لتحديد <span class="hl hl-client">صلاحيات السلطة</span> والمسؤولية والعلاقات التبادلية، بما يحقق <span class="hl hl-profit">الأهداف الاستراتيجية طويلة الأجل</span>.
+      </p>
+      <div class="def-grid">
+        <div class="def-card cyan">
+          <h4>🔑 خصائص المنظومة</h4>
+          <ul>
+            <li>كيان اقتصادي واجتماعي</li>
+            <li>ديناميكي (متغير ومتطور باستمرار)</li>
+            <li>قائم بذاته ومستقل نسبياً</li>
+            <li>هيكل تنظيمي يحدد السلطة والمسؤولية</li>
+            <li>يتبع أهدافاً استراتيجية طويلة الأجل</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- وظائف المنظمة الأساسية -->
+    <div class="content-block">
+      <h3>⚙️ وظائف المنظمة الأساسية</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>الوظيفة</th><th>الدور الرئيسي داخل المنظمة</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>وظيفة الإنتاج</b></td>
+              <td>تحويل المدخلات (مواد خام، عمالة، رأس مال) إلى منتجات وخدمات قابلة للتسويق</td>
+            </tr>
+            <tr>
+              <td><b>الوظيفة التمويلية</b></td>
+              <td>توفير الأموال اللازمة وإدارتها: التمويل، الاستثمار، وإدارة السيولة</td>
+            </tr>
+            <tr>
+              <td><b>وظيفة التسويق</b></td>
+              <td>دراسة احتياجات السوق، الترويج للمنتج، وتحقيق المبيعات ورضا العملاء</td>
+            </tr>
+            <tr>
+              <td><b>وظيفة إدارة الموارد البشرية</b></td>
+              <td>استقطاب الكفاءات، تدريبها، تقييم أدائها، وتطوير الحوافز والعلاقات الوظيفية</td>
+            </tr>
+            <tr>
+              <td><b>وظيفة البحوث والتطوير</b></td>
+              <td>ابتكار منتجات وعمليات جديدة وتطوير الموجود لمواكبة المنافسة والتغير</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- البيئة المحيطة بالمنظمة -->
+    <div class="content-block">
+      <h3>🌍 البيئة المحيطة بالمنظمة (النظام المفتوح)</h3>
+
+      <p class="def-text">
+        تُعد المنظمة <span class="hl hl-bank">نظاماً مفتوحاً</span> يتبادل مع بيئته المدخلات والمخرجات بشكل مستمر. وتنقسم البيئة إلى مستويات ثلاثة، وتدور دورة المنظمة حول <span class="hl hl-asset">المدخلات</span> ثم <span class="hl hl-capital">العمليات التشغيلية</span> فالمخرجات، مع وجود <span class="hl hl-profit">التغذية العكسية (Feedback)</span> التي تعيد المعلومات للمنظمة لتصحيح المسار.
+      </p>
+
+      <h4 style="margin-bottom:.6rem;font-weight:800;">مستويات البيئة الثلاثة</h4>
+      <div class="table-wrap" style="margin-bottom:1.6rem;">
+        <table>
+          <thead>
+            <tr><th>المستوى</th><th>العناصر</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>البيئة الداخلية</b></td>
+              <td>موارد وقدرات المنظمة الداخلية التي <b>تجهز المدخلات</b> (عمالة، مواد، أموال، معلومات، ثقافة المنظمة)</td>
+            </tr>
+            <tr>
+              <td><b>البيئة الخارجية الخاصة</b></td>
+              <td>مجلس الإدارة، المنافسون، الموردون، المستهلكون، الموزعون</td>
+            </tr>
+            <tr>
+              <td><b>البيئة الخارجية العامة</b></td>
+              <td>البيئة الاقتصادية، القانونية، التكنولوجية، السياسية، الاجتماعية، الديموغرافية</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 style="margin-bottom:.6rem;font-weight:800;">دورة النظام المفتوح</h4>
+      <div class="def-grid">
+        <div class="def-card">
+          <h4>1️⃣ المدخلات (Inputs)</h4>
+          <ul>
+            <li>مواد خام ومخزون</li>
+            <li>عمالة ورأس مال</li>
+            <li>معلومات وتكنولوجيا</li>
+          </ul>
+        </div>
+        <div class="def-card orange">
+          <h4>2️⃣ العمليات التشغيلية (Processes)</h4>
+          <ul>
+            <li>تحويل المدخلات داخل المنظمة</li>
+            <li>إدارة الجودة والكفاءة</li>
+            <li>التنسيق بين الوظائف</li>
+          </ul>
+        </div>
+        <div class="def-card green">
+          <h4>3️⃣ المخرجات (Outputs)</h4>
+          <ul>
+            <li>منتجات وخدمات نهائية</li>
+            <li>أرباح وقيمة للمساهمين</li>
+            <li>رضا العملاء والمجتمع</li>
+          </ul>
+        </div>
+        <div class="def-card cyan">
+          <h4>🔄 التغذية العكسية (Feedback)</h4>
+          <ul>
+            <li>آراء العملاء وتقييمات السوق</li>
+            <li>بيانات الأداء الفعلي</li>
+            <li>تصحيح الخطط والعمليات</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- اختبار إدارة الأعمال -->
+    <div class="content-block">
+      <h3>✏️ التمارين والاختبار التفاعلي - المحاضرة الأولى</h3>
+
+      <div class="quiz-q">
+        <h4>س1: عند هنري فايول، تتكون عملية "أن تدير" (To Manage) من عدد وظائف أساسية هي:</h4>
+        <button class="quiz-opt" onclick="checkAnswerBus(this,false,'غير صحيح.. عُدّ وظائف فايول في التعريف مرة أخرى')">4 وظائف فقط</button>
+        <button class="quiz-opt" onclick="checkAnswerBus(this,true,'ممتاز! فايول حدد خمس وظائف: التنبؤ والتخطيط، التنظيم، إصدار الأوامر، التنسيق، والمراقبة ✅')">5 وظائف: التنبؤ والتخطيط، التنظيم، الأوامر، التنسيق، المراقبة</button>
+        <button class="quiz-opt" onclick="checkAnswerBus(this,false,'غير صحيح.. العدد أقل من ذلك')">7 وظائف</button>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <div class="quiz-q">
+        <h4>س2: أي مما يلي يمثل عنصراً من عناصر البيئة الخارجية الخاصة للمنظمة؟</h4>
+        <button class="quiz-opt" onclick="checkAnswerBus(this,true,'أحسنت! الموردون والمنافسون والموزعون والمستهلكون ومجلس الإدارة كلها عناصر البيئة الخارجية الخاصة ✅')">الموردون والمنافسون</button>
+        <button class="quiz-opt" onclick="checkAnswerBus(this,false,'غير صحيح.. هذه عناصر من البيئة الخارجية العامة')">البيئة القانونية والتكنولوجية</button>
+        <button class="quiz-opt" onclick="checkAnswerBus(this,false,'غير صحيح.. هذه أحد المدخلات الداخلية وليست بيئة خارجية خاصة')">العمالة الداخلية بالمنظمة</button>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <div class="quiz-q">
+        <h4>س3: التعريف "كيان اقتصادي واجتماعي ديناميكي قائم بذاته... وفق هيكل تنظيمي داخلي" يشير إلى مفهوم:</h4>
+        <button class="quiz-opt" onclick="checkAnswerBus(this,false,'غير صحيح.. فايول عرّف وظائف الإدارة الخمس وليس هذا المفهوم')">وظائف الإدارة عند فايول</button>
+        <button class="quiz-opt" onclick="checkAnswerBus(this,true,'رائع! هذا هو التعريف الدقيق لمفهوم المنظومة (Organization) ✅')">المنظومة (Organization)</button>
+        <button class="quiz-opt" onclick="checkAnswerBus(this,false,'غير صحيح.. التغذية العكسية مرحلة من مراحل دورة النظام المفتوح')">التغذية العكسية (Feedback)</button>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <div class="quiz-score" id="quizScoreBus"></div>
+    </div>
+
+    <!-- كورسات وفيديو -->
+    <div class="content-block">
+      <h3>🎬 كورسات وأساسيات للفهم العميق</h3>
+      <div class="video-card">
+        <div class="video-thumb" onclick="openVideo('bus')">
+          <img src="https://img.youtube.com/vi/g-s8dVNkOew/maxresdefault.jpg" alt="مدخل إلى إدارة الأعمال" onerror="this.src='https://img.youtube.com/vi/g-s8dVNkOew/hqdefault.jpg'">
+          <div class="play-overlay">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="video-info">
+          <div>
+            <h4>مدخل إلى إدارة الأعمال - المحاضرة الأولى</h4>
+            <p>شرح مبسط لمفاهيم الإدارة والمنظومة والنظام المفتوح</p>
+          </div>
+          <button class="btn-watch" onclick="openVideo('bus')">▶ مشاهدة مباشرة</button>
         </div>
       </div>
     </div>
@@ -919,11 +1143,14 @@ td b{color:var(--primary);}
       <p style="margin-top:.6rem;font-weight:800;color:var(--text);">تم التطوير بواسطة سلطان | نظم المعلومات الإدارية 🖤</p>
     </div>
     <div class="qr-box">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=https%3A%2F%2Fsultaaan11.github.io%2FMy-SochiaaL%2F" alt="QR Code - حسابات المطور">
-      <span>📱DeV.SulTaaN </span>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=https%3A%2F%2Fsultaaan11.github.io%2FMy-SochiaaL%2F" alt="QR Code -  ">
+      <span>📱DeV.SulTaaN   </span>
     </div>
     <div>
-      <button class="share-btn" onclick="sharePlatform()">🔗 مشاركة المنصة</button>
+      <button class="wa-btn" onclick="shareWhatsApp()">
+        <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:#fff;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        مشاركة على واتساب
+      </button>
     </div>
   </div>
 </footer>
@@ -989,11 +1216,11 @@ function showToast(msg){
    4) نظام المواد والمحاضرات (Staggered Animation)
 ============================================ */
 var courses = [
-  {name:'مبادئ المحاسبة المالية', emoji:'🧮'},
-  {name:'مبادئ اقتصاد', emoji:'📊'},
-  {name:'إدارة أعمال', emoji:'💼'},
-  {name:'لغة أجنبية 1', emoji:'🗣️'},
-  {name:'مبادئ القانون', emoji:'⚖️'}
+  {name:'مبادئ المحاسبة المالية', emoji:'🧮', openLecture:1, targetPage:'lecture-acc'},
+  {name:'مبادئ اقتصاد', emoji:'📊', openLecture:-1, targetPage:''},
+  {name:'إدارة أعمال', emoji:'💼', openLecture:1, targetPage:'lecture-bus'},
+  {name:'لغة أجنبية 1', emoji:'🗣️', openLecture:-1, targetPage:''},
+  {name:'مبادئ القانون', emoji:'⚖️', openLecture:-1, targetPage:''}
 ];
 
 var currentCourse = -1;
@@ -1014,7 +1241,7 @@ function openCourse(index){
   list.innerHTML = '';
 
   for(var i = 1; i <= 10; i++){
-    var isOpen = (index === 0 && i === 1);
+    var isOpen = (courses[index].openLecture === i);
     var item = document.createElement('div');
     item.className = 'lecture-item' + (isOpen ? '' : ' locked');
     item.innerHTML =
@@ -1022,15 +1249,15 @@ function openCourse(index){
       '<span class="status-chip ' + (isOpen ? 'status-open' : 'status-soon') + '">' +
       (isOpen ? '✅ متاحة الآن' : '🔒 قريباً') + '</span>';
     item.style.transition = 'opacity .45s ease, transform .45s ease';
-    (function(n, open, courseIdx){
+    (function(open, target){
       item.addEventListener('click', function(){
         if(open){
-          goPage('lecture');
+          goPage(target);
         } else {
           showToast('⏳ قريباً جداً... جارٍ تجهيز المحاضرة');
         }
       });
-    })(i, isOpen, index);
+    })(isOpen, courses[index].targetPage);
     list.appendChild(item);
   }
 
@@ -1117,7 +1344,7 @@ function formatNum(n){
 }
 
 /* ============================================
-   7) الاختبار التفاعلي
+   7) اختبار المحاسبة التفاعلي
 ============================================ */
 var quizAnswered = 0;
 var quizCorrect = 0;
@@ -1148,7 +1375,7 @@ function checkAnswer(btn, correct, msg){
 
   quizAnswered++;
   if(quizAnswered === 5){
-    var scoreBox = document.getElementById('quizScore');
+    var scoreBox = document.getElementById('quizScoreAcc');
     var pct = Math.round((quizCorrect / 5) * 100);
     var msg2 = quizCorrect === 5 ? '🏆 ممتاز! إتقان كامل للمحاضرة' :
                quizCorrect >= 3 ? '👍 جيد جداً! راجع الأسئلة الخاطئة' :
@@ -1159,48 +1386,93 @@ function checkAnswer(btn, correct, msg){
 }
 
 /* ============================================
-   8) فتح فيديو يوتيوب
+   8) اختبار إدارة الأعمال التفاعلي
 ============================================ */
-function openVideo(){
-  window.open('https://www.youtube.com/results?search_query=%D8%B4%D8%B1%D8%AD+%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D8%B3%D8%A8%D8%A9+%D8%A7%D9%84%D9%85%D8%A7%D9%84%D9%8A%D8%A9+%D9%84%D9%84%D9%85%D8%A8%D8%AA%D8%AF%D8%A6%D9%8A%D9%86', '_blank');
-}
+var busAnswered = 0;
+var busCorrect = 0;
 
-/* ============================================
-   9) زر المشاركة / نسخ الرابط
-============================================ */
-function sharePlatform(){
-  var shareData = {
-    title: 'منصة الفرقة الأولى - نظم معلومات إدارية',
-    text: '🎓 منصة طلاب الفرقة الأولى - نظم معلومات إدارية (المجموعة ج) | جدول المحاضرات والمواد الدراسية',
-    url: window.location.href
-  };
+function checkAnswerBus(btn, correct, msg){
+  var q = btn.closest('.quiz-q');
+  if(q.dataset.done === '1') return;
 
-  if(navigator.share){
-  var shareUrl = 'https://sultaaan11.github.io/MiS-Group-C/';              
-    navigator.share(shareData).catch(function(){});
-  } else if(navigator.clipboard){
-    navigator.clipboard.writeText(window.location.href).then(function(){
-      showToast('✅ تم نسخ رابط المنصة بنجاح! ');
-    }).catch(function(){
-      fallbackCopy();
-    });
+  q.dataset.done = '1';
+  var opts = q.querySelectorAll('.quiz-opt');
+  opts.forEach(function(o){ o.disabled = true; });
+
+  if(correct){
+    btn.classList.add('correct');
+    busCorrect++;
   } else {
-    fallbackCopy();
+    btn.classList.add('wrong');
+    opts.forEach(function(o){
+      if(o.getAttribute('onclick') && o.getAttribute('onclick').indexOf('true') !== -1){
+        o.classList.add('correct');
+      }
+    });
+  }
+
+  var fb = q.querySelector('.quiz-feedback');
+  fb.textContent = msg;
+  fb.className = 'quiz-feedback ' + (correct ? 'ok' : 'no');
+
+  busAnswered++;
+  if(busAnswered === 3){
+    var scoreBox = document.getElementById('quizScoreBus');
+    var pct = Math.round((busCorrect / 3) * 100);
+    var msg2 = busCorrect === 3 ? '🏆 ممتاز! فهم كامل لمحاور المحاضرة' :
+               busCorrect >= 2 ? '👍 جيد جداً! راجع السؤال الخاطئ' :
+               '📚 راجع محاور المحاضرة وحاول مرة أخرى';
+    scoreBox.innerHTML = 'نتيجتك النهائية: ' + busCorrect + ' / 3 (' + pct + '%) — ' + msg2;
+    scoreBox.classList.add('show');
   }
 }
 
-function fallbackCopy(){
-  var targetUrl = url || 'https://sultaaan11.github.io/MiS-Group-C/';
+/* ============================================
+   9) فتح فيديو يوتيوب
+============================================ */
+function openVideo(type){
+  var urls = {
+    acc: 'https://www.youtube.com/results?search_query=%D8%B4%D8%B1%D8%AD+%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D8%B3%D8%A8%D8%A9+%D8%A7%D9%84%D9%85%D8%A7%D9%84%D9%8A%D8%A9+%D9%84%D9%84%D9%85%D8%A8%D8%AA%D8%AF%D8%A6%D9%8A%D9%86',
+    bus: 'https://www.youtube.com/results?search_query=%D9%85%D8%AF%D8%AE%D9%84+%D8%A5%D9%84%D9%89+%D8%A5%D8%AF%D8%A7%D8%B1%D8%A9+%D8%A7%D9%84%D8%A3%D8%B9%D9%85%D8%A7%D9%84+%D9%84%D9%84%D9%85%D8%A8%D8%AA%D8%AF%D8%A6%D9%8A%D9%86'
+  };
+  window.open(urls[type], '_blank');
+}
+
+/* ============================================
+   10) زر مشاركة واتساب: نسخ الرابط + فتح واتساب
+============================================ */
+function shareWhatsApp(){
+  var link = window.location.href;
+  var message = '🎓 منصة الفرقة الأولى - نظم معلومات إدارية (المجموعة ج) | أكاديمية الشروق\n\nجدول المحاضرات والسكاشن + شرح المحاضرات كامل 📚\n\n🔗 الرابط: ' + link;
+
+  // نسخ الرابط للحافظة أولاً
+  copyToClipboard(link);
+
+  // في نفس اللحظة: فتح واتساب برسالة جاهزة (WhatsApp API)
+  var waUrl = 'https://wa.me/?text=' + encodeURIComponent(message);
+  window.open(waUrl, '_blank');
+
+  showToast('✅ تم نسخ الرابط وفتح واتساب!   ');
+}
+
+function copyToClipboard(text){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).catch(function(){
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text){
   var temp = document.createElement('textarea');
-  temp.value = window.location.href;
+  temp.value = text;
   document.body.appendChild(temp);
   temp.select();
   try{
     document.execCommand('copy');
-    showToast('✅ تم نسخ رابط المنصة بنجاح! ');
-  }catch(e){
-    showToast('⚠️ انسخ الرابط من شريط المتصفح');
-  }
+  }catch(e){}
   document.body.removeChild(temp);
 }
 </script>
