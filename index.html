@@ -1176,10 +1176,11 @@ function sharePlatform(){
   };
 
   if(navigator.share){
+  var shareUrl = 'https://sultaaan11.github.io/MiS-Group-C/';              
     navigator.share(shareData).catch(function(){});
   } else if(navigator.clipboard){
     navigator.clipboard.writeText(window.location.href).then(function(){
-      showToast('✅ تم نسخ رابط المنصة بنجاح! شاركه مع زمايلك');
+      showToast('✅ تم نسخ رابط المنصة بنجاح! ');
     }).catch(function(){
       fallbackCopy();
     });
@@ -1189,15 +1190,16 @@ function sharePlatform(){
 }
 
 function fallbackCopy(){
+  var targetUrl = url || 'https://sultaaan11.github.io/MiS-Group-C/';
   var temp = document.createElement('textarea');
   temp.value = window.location.href;
   document.body.appendChild(temp);
   temp.select();
   try{
     document.execCommand('copy');
-    showToast('✅ تم نسخ رابط المنصة بنجاح! شاركه مع زمايلك');
+    showToast('✅ تم نسخ رابط المنصة بنجاح! ');
   }catch(e){
-    showToast(' file:///D:/%D8%B4%D8%BA%D9%84/MiS/index.html');
+    showToast('⚠️ انسخ الرابط من شريط المتصفح');
   }
   document.body.removeChild(temp);
 }
