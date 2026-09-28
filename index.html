@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>منصة الفرقة الأولى - نظم معلومات إدارية | المجموعة ج</title>
+<style>
+/* ============================================
+   نظام المتغيرات - الوضع الفاتح والداكن
+============================================ */
+:root{
+  --bg:#f4f6fb;
+  --bg-card:#ffffff;
+  --bg-soft:#eef1f8;
+  --text:#1a2233;
+  --text-soft:#5b6579;
+  --primary:#4f46e5;
+  --primary-2:#7c3aed;
+  --accent:#06b6d4;
+  --border:#e2e6f0;
+  --shadow:0 10px 30px rgba(30,41,59,.10);
+  --shadow-hover:0 16px 40px rgba(79,70,229,.18);
+  --nav-bg:rgba(255,255,255,.85);
+  --grad:linear-gradient(135deg,#4f46e5,#7c3aed 55%,#06b6d4);
+}
+html[data-theme="dark"]{
+  --bg:#0b1020;
+  --bg-card:#141b2e;
+  --bg-soft:#1a2238;
+  --text:#e8ecf6;
+  --text-soft:#9aa6c0;
+  --border:#263150;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  --shadow-hover:0 16px 40px rgba(124,58,237,.30);
+  --nav-bg:rgba(11,16,32,.88);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:"Segoe UI",Tahoma,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  overflow-x:hidden;
+  transition:background .4s ease,color .4s ease;
+}
+::selection{background:var(--primary);color:#fff;}
+
+/* ============================================
+   شريط التنقل العلوي
+============================================ */
+.navbar{
+  position:fixed;top:0;right:0;left:0;z-index:1000;
+  background:var(--nav-bg);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+  transition:background .4s ease;
+}
+.nav-inner{
+  max-width:1200px;margin:0 auto;padding:.8rem 1.2rem;
+  display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;
+}
+.brand{
+  display:flex;align-items:center;gap:.6rem;
+  font-weight:800;font-size:1.05rem;cursor:pointer;
+  background:var(--grad);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  white-space:nowrap;
+}
+.brand .logo{
+  width:38px;height:38px;border-radius:12px;
+  background:var(--grad);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;-webkit-text-fill-color:#fff;
+  box-shadow:var(--shadow);
+  flex-shrink:0;
+}
+.nav-links{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;}
+.nav-btn{
+  border:none;background:transparent;color:var(--text-soft);
+  font-family:inherit;font-size:.95rem;font-weight:600;
+  padding:.5rem 1rem;border-radius:10px;cursor:pointer;
+  transition:all .25s ease;white-space:nowrap;
+}
+.nav-btn:hover{color:var(--primary);background:var(--bg-soft);}
+.nav-btn.active{
+  color:#fff;background:var(--grad);
+  box-shadow:0 4px 14px rgba(79,70,229,.35);
+}
+.theme-toggle{
+  border:1px solid var(--border);background:var(--bg-card);
+  color:var(--text);width:42px;height:42px;border-radius:12px;
+  font-size:1.15rem;cursor:pointer;transition:all .3s ease;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.theme-toggle:hover{transform:rotate(20deg) scale(1.08);border-color:var(--primary);}
+
+/* ============================================
+   هيكل الصفحات
+============================================ */
+.page{display:none;padding-top:90px;min-height:100vh;animation:pageIn .45s ease;}
+.page.active{display:block;}
+@keyframes pageIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.container{max-width:1200px;margin:0 auto;padding:2rem 1.2rem 4rem;}
+.section-title{
+  font-size:1.9rem;font-weight:800;text-align:center;margin-bottom:.4rem;
+}
+.section-sub{text-align:center;color:var(--text-soft);margin-bottom:2.2rem;font-size:1rem;}
+
+/* ============================================
+   الصفحة الرئيسية - Hero
+============================================ */
+.hero{
+  min-height:calc(100vh - 90px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:2rem 1.2rem;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,58,237,.22),transparent 65%);
+  top:-160px;left:-120px;pointer-events:none;
+}
+.hero::after{
+  content:"";position:absolute;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(6,182,212,.18),transparent 65%);
+  bottom:-120px;right:-100px;pointer-events:none;
+}
+.hero-badge{
+  display:inline-block;background:var(--bg-card);border:1px solid var(--border);
+  color:var(--primary);font-weight:700;font-size:.85rem;
+  padding:.45rem 1.2rem;border-radius:999px;margin-bottom:1.4rem;
+  box-shadow:var(--shadow);animation:float 4s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.hero h1{
+  font-size:clamp(1.7rem,5vw,3rem);font-weight:900;line-height:1.5;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;margin-bottom:1rem;position:relative;z-index:1;
+}
+.hero p{color:var(--text-soft);font-size:clamp(1rem,2.5vw,1.2rem);margin-bottom:2.2rem;position:relative;z-index:1;}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;position:relative;z-index:1;}
+.btn{
+  border:none;cursor:pointer;font-family:inherit;font-weight:700;
+  font-size:1.05rem;padding:1rem 2.2rem;border-radius:16px;
+  transition:all .3s ease;display:inline-flex;align-items:center;gap:.5rem;
+}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 24px rgba(79,70,229,.40);}
+.btn-primary:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 14px 34px rgba(124,58,237,.45);}
+.btn-outline{
+  background:var(--bg-card);color:var(--primary);
+  border:2px solid var(--primary);
+}
+.btn-outline:hover{background:var(--primary);color:#fff;transform:translateY(-4px);}
+
+/* ============================================
+   صفحة الجدول
+============================================ */
+.day-card{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:20px;box-shadow:var(--shadow);
+  margin-bottom:2rem;overflow:hidden;
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+.day-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);}
+.day-header{
+  background:var(--grad);color:#fff;padding:1rem 1.4rem;
+  display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap;
+}
+.day-header h3{font-size:1.25rem;font-weight:800;display:flex;align-items:center;gap:.5rem;}
+.day-header .day-date{font-size:.85rem;opacity:.9;font-weight:600;}
+.session{
+  padding:1.1rem 1.4rem;border-bottom:1px solid var(--border);
+  display:flex;gap:1rem;align-items:flex-start;flex-wrap:wrap;
+  transition:background .25s ease;
+}
+.session:last-child{border-bottom:none;}
+.session:hover{background:var(--bg-soft);}
+.session-icon{
+  width:46px;height:46px;border-radius:14px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;
+  background:var(--bg-soft);
+}
+.session.lec .session-icon{background:rgba(79,70,229,.14);}
+.session.sec .session-icon{background:rgba(6,182,212,.14);}
+.session-body{flex:1;min-width:220px;}
+.session-title{font-weight:800;font-size:1.05rem;margin-bottom:.15rem;}
+.session-meta{color:var(--text-soft);font-size:.9rem;display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;}
+.session-meta b{color:var(--text);}
+.time-chip{
+  background:var(--bg-soft);border:1px solid var(--border);
+  padding:.35rem .9rem;border-radius:999px;font-size:.82rem;font-weight:700;
+  color:var(--primary);white-space:nowrap;align-self:center;
+}
+.tag{
+  display:inline-block;font-size:.72rem;font-weight:800;padding:.15rem .6rem;
+  border-radius:6px;margin-inline-start:.4rem;vertical-align:middle;
+}
+.tag-lec{background:rgba(79,70,229,.15);color:var(--primary);}
+.tag-sec{background:rgba(6,182,212,.16);color:#0891b2;}
+html[data-theme="dark"] .tag-sec{color:#22d3ee;}
+.sub-group-list{padding:.6rem 1.4rem 1.2rem;display:flex;flex-direction:column;gap:.5rem;}
+.sub-group{
+  background:var(--bg-soft);border-radius:12px;padding:.7rem 1rem;
+  font-size:.92rem;border-right:3px solid var(--accent);
+  transition:transform .2s ease;
+}
+.sub-group:hover{transform:translateX(-4px);}
+.sub-group b{color:var(--primary);}
+
+/* ============================================
+   صفحة المواد
+============================================ */
+.courses-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem;
+}
+.course-card{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:20px;
+  padding:1.6rem;cursor:pointer;box-shadow:var(--shadow);
+  transition:all .3s ease;position:relative;overflow:hidden;
+}
+.course-card::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:5px;background:var(--grad);
+  opacity:0;transition:opacity .3s ease;
+}
+.course-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover);}
+.course-card:hover::before{opacity:1;}
+.course-emoji{
+  width:60px;height:60px;border-radius:18px;font-size:1.8rem;
+  display:flex;align-items:center;justify-content:center;margin-bottom:1rem;
+  background:var(--bg-soft);
+}
+.course-card h3{font-size:1.15rem;font-weight:800;margin-bottom:.3rem;}
+.course-card p{color:var(--text-soft);font-size:.9rem;}
+.course-card .open-hint{
+  margin-top:1rem;font-size:.85rem;font-weight:700;color:var(--primary);
+  display:flex;align-items:center;gap:.3rem;
+}
+.lectures-panel{
+  display:none;margin-top:1.4rem;
+  background:var(--bg-card);border:1px solid var(--border);border-radius:20px;
+  padding:1.6rem;box-shadow:var(--shadow);
+}
+.lectures-panel.show{display:block;animation:pageIn .4s ease;}
+.lectures-panel h3{margin-bottom:1.2rem;font-size:1.2rem;font-weight:800;display:flex;align-items:center;gap:.5rem;}
+.lecture-list{display:flex;flex-direction:column;gap:.6rem;}
+.lecture-item{
+  display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;
+  background:var(--bg-soft);border:1px solid var(--border);border-radius:14px;
+  padding:.9rem 1.2rem;cursor:pointer;transition:all .25s ease;
+  opacity:0;transform:translateY(-14px);
+}
+.lecture-item.anim-in{opacity:1;transform:translateY(0);}
+.lecture-item:hover{border-color:var(--primary);transform:translateX(-5px);}
+.lecture-item .lec-name{font-weight:700;display:flex;align-items:center;gap:.6rem;}
+.lecture-item .lec-num{
+  width:30px;height:30px;border-radius:9px;background:var(--grad);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;flex-shrink:0;
+}
+.lecture-item.locked{opacity:.75;cursor:not-allowed;}
+.lecture-item.locked:hover{transform:none;border-color:var(--border);}
+.status-chip{font-size:.75rem;font-weight:800;padding:.25rem .8rem;border-radius:999px;}
+.status-open{background:rgba(34,197,94,.16);color:#16a34a;}
+.status-soon{background:rgba(245,158,11,.16);color:#d97706;}
+
+/* ============================================
+   صفحة المحاضرة الأولى
+============================================ */
+.lecture-hero{
+  background:var(--grad);color:#fff;border-radius:22px;
+  padding:2rem 1.6rem;margin-bottom:2rem;box-shadow:var(--shadow);
+}
+.lecture-hero h2{font-size:1.5rem;font-weight:900;margin-bottom:.3rem;}
+.lecture-hero p{opacity:.92;font-size:.95rem;}
+.content-block{
+  background:var(--bg-card);border:1px solid var(--border);border-radius:20px;
+  padding:1.8rem;margin-bottom:2rem;box-shadow:var(--shadow);
+}
+.content-block h3{
+  font-size:1.25rem;font-weight:800;margin-bottom:1.2rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.def-text{font-size:1.05rem;line-height:2;margin-bottom:1.2rem;}
+.def-text:last-child{margin-bottom:0;}
+
+/* التنسيق الدلالي الصايع للألوان */
+.hl{font-weight:800;padding:.05rem .4rem;border-radius:7px;transition:all .2s ease;cursor:default;}
+.hl:hover{filter:brightness(1.12);transform:scale(1.04);display:inline-block;}
+.hl-profit{background:rgba(34,197,94,.18);color:#16a34a;}
+.hl-loss{background:rgba(239,68,68,.16);color:#dc2626;}
+.hl-bank{background:rgba(14,165,233,.16);color:#0284c7;}
+html[data-theme="dark"] .hl-bank{color:#38bdf8;}
+.hl-asset{background:rgba(79,70,229,.15);color:var(--primary);}
+.hl-client{background:rgba(217,119,6,.16);color:#c2410c;}
+html[data-theme="dark"] .hl-client{color:#fb923c;}
+.hl-capital{background:rgba(147,51,234,.15);color:#7e22ce;}
+html[data-theme="dark"] .hl-capital{color:#c084fc;}
+.hl-manager{background:rgba(5,150,105,.15);color:#047857;}
+html[data-theme="dark"] .hl-manager{color:#34d399;}
+
+.def-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;}
+.def-card{
+  background:var(--bg-soft);border-radius:16px;padding:1.3rem;border-top:4px solid var(--primary);
+}
+.def-card.green{border-top-color:#16a34a;}
+.def-card.orange{border-top-color:#d97706;}
+.def-card.cyan{border-top-color:#0891b2;}
+.def-card h4{font-weight:800;margin-bottom:.5rem;font-size:1.05rem;}
+.def-card ul{list-style:none;display:flex;flex-direction:column;gap:.4rem;font-size:.95rem;}
+.def-card li::before{content:"✔";color:var(--primary);font-weight:900;margin-inline-end:.5rem;}
+.def-card.green li::before{color:#16a34a;}
+
+table{width:100%;border-collapse:collapse;font-size:.95rem;border-radius:14px;overflow:hidden;}
+.table-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--border);}
+th{background:var(--grad);color:#fff;padding:.8rem 1rem;text-align:right;font-weight:800;white-space:nowrap;}
+td{padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:var(--bg-soft);}
+td b{color:var(--primary);}
+
+/* الآلة الحاسبة المحاسبية */
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;align-items:start;}
+@media(max-width:820px){.calc-grid{grid-template-columns:1fr;}}
+.calc-box{
+  background:var(--bg-soft);border-radius:18px;padding:1.4rem;border:1px solid var(--border);
+}
+.calc-display{
+  width:100%;background:var(--bg-card);border:2px solid var(--border);border-radius:14px;
+  font-size:1.6rem;font-weight:800;padding:.9rem 1.1rem;text-align:left;color:var(--text);
+  margin-bottom:1rem;font-family:inherit;direction:ltr;
+}
+.calc-keys{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;}
+.calc-key{
+  border:none;border-radius:12px;padding:.85rem 0;font-size:1.15rem;font-weight:800;
+  background:var(--bg-card);color:var(--text);cursor:pointer;transition:all .15s ease;
+  border:1px solid var(--border);font-family:inherit;
+}
+.calc-key:hover{transform:translateY(-2px);border-color:var(--primary);}
+.calc-key:active{transform:scale(.95);}
+.calc-key.op{background:rgba(79,70,229,.12);color:var(--primary);}
+.calc-key.eq{background:var(--grad);color:#fff;grid-column:span 2;}
+.calc-key.clear{background:rgba(239,68,68,.12);color:#dc2626;}
+.calc-result-item{
+  display:flex;justify-content:space-between;align-items:center;gap:.6rem;
+  background:var(--bg-card);border:1px solid var(--border);border-radius:12px;
+  padding:.8rem 1.1rem;margin-bottom:.7rem;font-size:.95rem;flex-wrap:wrap;
+}
+.calc-result-item b{color:var(--primary);font-size:1.05rem;direction:ltr;}
+
+/* الاختبار التفاعلي */
+.quiz-q{
+  background:var(--bg-soft);border-radius:16px;padding:1.3rem;margin-bottom:1.2rem;
+  border-right:4px solid var(--primary);
+}
+.quiz-q h4{margin-bottom:.8rem;font-weight:800;}
+.quiz-opt{
+  display:block;width:100%;text-align:right;margin-bottom:.5rem;
+  background:var(--bg-card);border:2px solid var(--border);border-radius:12px;
+  padding:.7rem 1rem;font-family:inherit;font-size:.95rem;font-weight:600;
+  color:var(--text);cursor:pointer;transition:all .2s ease;
+}
+.quiz-opt:hover:not(:disabled){border-color:var(--primary);transform:translateX(-4px);}
+.quiz-opt.correct{border-color:#16a34a;background:rgba(34,197,94,.13);color:#16a34a;}
+.quiz-opt.wrong{border-color:#dc2626;background:rgba(239,68,68,.10);color:#dc2626;}
+.quiz-opt:disabled{cursor:default;opacity:.85;}
+.quiz-feedback{font-weight:800;margin-top:.5rem;font-size:.92rem;min-height:1.4em;}
+.quiz-feedback.ok{color:#16a34a;}
+.quiz-feedback.no{color:#dc2626;}
+.quiz-score{
+  text-align:center;font-size:1.15rem;font-weight:900;padding:1rem;border-radius:14px;
+  background:var(--bg-soft);display:none;
+}
+.quiz-score.show{display:block;animation:pageIn .4s ease;}
+
+/* فيديو يوتيوب */
+.video-card{
+  border-radius:20px;overflow:hidden;border:1px solid var(--border);
+  background:var(--bg-card);box-shadow:var(--shadow);
+}
+.video-thumb{position:relative;cursor:pointer;}
+.video-thumb img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;}
+.play-overlay{
+  position:absolute;inset:0;background:rgba(10,15,30,.45);
+  display:flex;align-items:center;justify-content:center;transition:background .3s ease;
+}
+.video-thumb:hover .play-overlay{background:rgba(10,15,30,.25);}
+.play-btn{
+  width:74px;height:74px;border-radius:50%;background:#ff0033;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 30px rgba(255,0,51,.5);transition:transform .3s ease;
+}
+.video-thumb:hover .play-btn{transform:scale(1.12);}
+.play-btn svg{width:28px;height:28px;fill:#fff;margin-inline-start:4px;}
+.video-info{padding:1.2rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.video-info h4{font-weight:800;font-size:1.05rem;}
+.video-info p{color:var(--text-soft);font-size:.88rem;}
+.btn-watch{
+  background:#ff0033;color:#fff;border:none;border-radius:12px;
+  padding:.75rem 1.6rem;font-weight:800;font-family:inherit;font-size:.95rem;
+  cursor:pointer;text-decoration:none;transition:all .25s ease;white-space:nowrap;
+}
+.btn-watch:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(255,0,51,.4);}
+
+/* ============================================
+   الفوتر + الباركود + المشاركة
+============================================ */
+.footer{
+  background:var(--bg-card);border-top:1px solid var(--border);
+  padding:2.5rem 1.2rem;margin-top:2rem;
+}
+.footer-inner{
+  max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;
+  gap:2.5rem;flex-wrap:wrap;text-align:center;
+}
+.footer-brand{font-weight:900;font-size:1.15rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.footer p{color:var(--text-soft);font-size:.9rem;margin-top:.3rem;}
+.qr-box{
+  background:var(--bg-soft);border:1px solid var(--border);border-radius:18px;
+  padding:1rem;display:flex;flex-direction:column;align-items:center;gap:.6rem;
+}
+.qr-box img{width:140px;height:140px;border-radius:10px;background:#fff;padding:6px;}
+.qr-box span{font-size:.82rem;font-weight:700;color:var(--text-soft);}
+.share-btn{
+  background:var(--grad);color:#fff;border:none;border-radius:14px;
+  padding:.9rem 1.8rem;font-family:inherit;font-weight:800;font-size:1rem;
+  cursor:pointer;transition:all .3s ease;box-shadow:0 6px 20px rgba(79,70,229,.35);
+  display:inline-flex;align-items:center;gap:.5rem;
+}
+.share-btn:hover{transform:translateY(-3px) scale(1.03);}
+
+/* التوست */
+.toast{
+  position:fixed;bottom:26px;right:50%;transform:translate(50%,120px);
+  background:var(--grad);color:#fff;font-weight:800;font-size:.95rem;
+  padding:.9rem 1.8rem;border-radius:14px;box-shadow:0 12px 34px rgba(0,0,0,.3);
+  z-index:2000;transition:transform .4s cubic-bezier(.34,1.4,.64,1);
+  display:flex;align-items:center;gap:.5rem;white-space:nowrap;max-width:92vw;
+}
+.toast.show{transform:translate(50%,0);}
+
+.back-btn{
+  background:var(--bg-card);border:2px solid var(--border);color:var(--text);
+  border-radius:12px;padding:.6rem 1.3rem;font-family:inherit;font-weight:700;
+  cursor:pointer;margin-bottom:1.4rem;transition:all .25s ease;font-size:.92rem;
+  display:inline-flex;align-items:center;gap:.4rem;
+}
+.back-btn:hover{border-color:var(--primary);color:var(--primary);transform:translateX(4px);}
+
+@media(max-width:640px){
+  .nav-inner{justify-content:center;}
+  .brand{font-size:.95rem;}
+  .btn{width:100%;justify-content:center;}
+  .hero-btns{width:100%;}
+  th,td{padding:.6rem .7rem;font-size:.85rem;}
+  .calc-keys{gap:.45rem;}
+  .lecture-item:hover{transform:none;}
+}
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<!-- ============ شريط التنقل ============ -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="brand" onclick="goPage('home')">
+      <div class="logo">🎓</div>
+      <span>منصة الفرقة الأولى - MIS</span>
+    </div>
+    <div class="nav-links">
+      <button class="nav-btn active" data-page="home" onclick="goPage('home')">الرئيسية</button>
+      <button class="nav-btn" data-page="schedule" onclick="goPage('schedule')">جدول المحاضرات</button>
+      <button class="nav-btn" data-page="courses" onclick="goPage('courses')">المواد الدراسية</button>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="تبديل الوضع">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ الصفحة الرئيسية ============ -->
+<section class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-badge">📚 أكاديمية الشروق | المعهد العالي للحاسبات وتكنولوجيا المعلومات</div>
+    <h1>حاولت اعمل حاجه صح </h1>
+    <span style="font-size: 80px;">🫡</span>
+    <p>منصة طلاب الفرقة الأولى - نظم معلومات إدارية (المجموعة ج) | أكاديمية الشروق</p>
+    <div class="hero-btns">
+      <button class="btn btn-primary" onclick="goPage('schedule')">📅 جدول المحاضرات والسكاشن</button>
+      <button class="btn btn-outline" onclick="goPage('courses')">📖 المواد الدراسية</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ صفحة الجدول ============ -->
+<section class="page" id="page-schedule">
+  <div class="container">
+    <h2 class="section-title">📅 جدول المحاضرات والسكاشن</h2>
+    <p class="section-sub">الفرقة الأولى - نظم معلومات إدارية | المجموعة ج | الترم الأول</p>
+
+    <!-- يوم السبت -->
+    <div class="day-card">
+      <div class="day-header">
+        <h3>🗓️ يوم السبت</h3>
+        <span class="day-date">محاضرة + سكشن صباحاً</span>
+      </div>
+      <div class="session lec">
+        <div class="session-icon">📊</div>
+        <div class="session-body">
+          <div class="session-title">مبادئ اقتصاد <span class="tag tag-lec">محاضرة</span></div>
+          <div class="session-meta">
+            <span>👨‍🏫 الدكتور: <b>د/ إيهاب يونس</b></span>
+            <span>📍 المكان: <b>مدرج 6 هـ</b></span>
+          </div>
+        </div>
+        <span class="time-chip">9:15 - 10:45 صباحاً</span>
+      </div>
+      <div class="session sec">
+        <div class="session-icon">💼</div>
+        <div class="session-body">
+          <div class="session-title">إدارة أعمال <span class="tag tag-sec">سكشن</span></div>
+          <div class="session-meta">
+            <span>🔢 السكاشن: <b>من 25 إلى 30</b></span>
+            <span>👨‍🏫 المعيد: <b>م/ محمد سلام</b></span>
+            <span>📍 المكان: <b>مدرج 3 و</b></span>
+          </div>
+        </div>
+        <span class="time-chip">10:55 - 11:40 صباحاً</span>
+      </div>
+    </div>
+
+    <!-- يوم الأحد -->
+    <div class="day-card">
+      <div class="day-header">
+        <h3>🗓️ يوم الأحد</h3>
+        <span class="day-date">سكاشن صباحاً + محاضرات ظهراً</span>
+      </div>
+      <div class="session sec">
+        <div class="session-icon">👥</div>
+        <div class="session-body">
+          <div class="session-title">السكاشن <span class="tag tag-sec">الفترة الثالثة والرابعة</span></div>
+          <div class="session-meta">
+            <span>⏰ الموعد: <b>9:15 - 10:45 صباحاً</b></span>
+          </div>
+        </div>
+      </div>
+      <div class="sub-group-list">
+        <div class="sub-group">🗣️ <b>لغة أجنبية 1</b> | السكاشن <b>25 إلى 29</b> | م/ رحمة أحمد | مدرج 1 و</div>
+        <div class="sub-group">🧮 <b>مبادئ محاسبة مالية</b> | السكاشن <b>30 إلى 33</b> | م/ تقى صادق | مدرج 1 هـ</div>
+        <div class="sub-group">💼 <b>إدارة أعمال</b> | سكشن <b>34</b> | م/ ندى مراد | قاعة 9، مبنى 3 هـ</div>
+        <div class="sub-group">🗣️ <b>لغة أجنبية 1</b> | السكاشن <b>35 و 36</b> | م/ رحمة أحمد | مدرج 1 و</div>
+      </div>
+      <div class="session lec">
+        <div class="session-icon">💼</div>
+        <div class="session-body">
+          <div class="session-title">إدارة أعمال <span class="tag tag-lec">محاضرة</span></div>
+          <div class="session-meta">
+            <span>👩‍🏫 الدكتورة: <b>د/ هدى عبدالعال</b></span>
+            <span>📍 المكان: <b>مدرج 3 د</b></span>
+          </div>
+        </div>
+        <span class="time-chip">12:45 - 2:10 ظهراً</span>
+      </div>
+      <div class="session lec">
+        <div class="session-icon">🗣️</div>
+        <div class="session-body">
+          <div class="session-title">لغة أجنبية 1 <span class="tag tag-lec">محاضرة</span></div>
+          <div class="session-meta">
+            <span>👨‍🏫 الدكتور: <b>د/ محمود كامل</b></span>
+            <span>📍 المكان: <b>مدرج 2 د</b></span>
+          </div>
+        </div>
+        <span class="time-chip">2:20 - 3:45 عصراً</span>
+      </div>
+    </div>
+
+    <!-- يوم الخميس -->
+    <div class="day-card">
+      <div class="day-header">
+        <h3>🗓️ يوم الخميس</h3>
+        <span class="day-date">محاضرة صباحاً + سكاشن ظهراً وعصراً</span>
+      </div>
+      <div class="session lec">
+        <div class="session-icon">⚖️</div>
+        <div class="session-body">
+          <div class="session-title">مبادئ قانون <span class="tag tag-lec">محاضرة</span></div>
+          <div class="session-meta">
+            <span>👨‍🏫 الدكتور: <b>د/ أحمد نعمان</b></span>
+            <span>📍 المكان: <b>مدرج 3 هـ</b></span>
+          </div>
+        </div>
+        <span class="time-chip">9:15 - 10:45 صباحاً</span>
+      </div>
+      <div class="session sec">
+        <div class="session-icon">💼</div>
+        <div class="session-body">
+          <div class="session-title">مبادئ اقتصاد <span class="tag tag-sec">سكشن</span></div>
+          <div class="session-meta">
+            <span>🔢 السكاشن: <b>من 31 إلى 36</b></span>
+            <span>👩‍🏫 المعيدة: <b>م/ رضوى الباري</b></span>
+            <span>📍 المكان: <b>مدرج 3 و</b></span>
+          </div>
+        </div>
+        <span class="time-chip">12:45 - 2:10 ظهراً</span>
+      </div>
+      <div class="session sec">
+        <div class="session-icon">👥</div>
+        <div class="session-body">
+          <div class="session-title">السكاشن <span class="tag tag-sec">الفترة المسائية</span></div>
+          <div class="session-meta">
+            <span>⏰ الموعد: <b>2:20 - 3:45 عصراً</b></span>
+          </div>
+        </div>
+      </div>
+      <div class="sub-group-list">
+        <div class="sub-group">📊 <b>مبادئ اقتصاد</b> | السكاشن <b>25 إلى 30</b> | م/ رضوى الباري | مدرج 3 و</div>
+        <div class="sub-group">💼 <b>إدارة أعمال</b> | السكاشن <b>31 إلى 33</b> | م/ محمد سلام | مدرج 4 د</div>
+        <div class="sub-group">🧮 <b>مبادئ محاسبة مالية</b> | السكاشن <b>33 إلى 36</b> | م/ تقى صادق | مدرج 1 هـ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ صفحة المواد ============ -->
+<section class="page" id="page-courses">
+  <div class="container">
+    <h2 class="section-title">📖 المواد الدراسية</h2>
+    <p class="section-sub">اضغط على أي مادة لعرض قائمة المحاضرات</p>
+
+    <div class="courses-grid">
+      <div class="course-card" onclick="openCourse(0)">
+        <div class="course-emoji">🧮</div>
+        <h3>مبادئ المحاسبة المالية</h3>
+        <p>الأساسيات، المعادلة المحاسبية، القوائم المالية</p>
+        <div class="open-hint">عرض المحاضرات ←</div>
+      </div>
+      <div class="course-card" onclick="openCourse(1)">
+        <div class="course-emoji">📊</div>
+        <h3>مبادئ اقتصاد</h3>
+        <p>مفاهيم اقتصادية، العرض والطلب، الأسواق</p>
+        <div class="open-hint">عرض المحاضرات ←</div>
+      </div>
+      <div class="course-card" onclick="openCourse(2)">
+        <div class="course-emoji">💼</div>
+        <h3>إدارة أعمال</h3>
+        <p>مدخل إداري شامل لعالم الأعمال</p>
+        <div class="open-hint">عرض المحاضرات ←</div>
+      </div>
+      <div class="course-card" onclick="openCourse(3)">
+        <div class="course-emoji">🗣️</div>
+        <h3>لغة أجنبية 1</h3>
+        <p>مهارات اللغة الإنجليزية الأساسية</p>
+        <div class="open-hint">عرض المحاضرات ←</div>
+      </div>
+      <div class="course-card" onclick="openCourse(4)">
+        <div class="course-emoji">⚖️</div>
+        <h3>مبادئ القانون</h3>
+        <p>مدخل القانون والأنظمة القانونية</p>
+        <div class="open-hint">عرض المحاضرات ←</div>
+      </div>
+    </div>
+
+    <div class="lectures-panel" id="lecturesPanel">
+      <h3 id="lecturesTitle"></h3>
+      <div class="lecture-list" id="lectureList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ صفحة المحاضرة الأولى ============ -->
+<section class="page" id="page-lecture">
+  <div class="container">
+    <button class="back-btn" onclick="goPage('courses')">→ رجوع للمواد</button>
+
+    <div class="lecture-hero">
+      <h2>🧮 المحاضرة الأولى - مبادئ المحاسبة المالية</h2>
+      <p>مدخل شامل للمحاسبة: التعريف، المستفيدون، القوائم المالية، وقواعد السبورة</p>
+    </div>
+
+    <!-- الأساسيات والتعريفات -->
+    <div class="content-block">
+      <h3>📚 الأساسيات والتعريفات المحاسبية الهامة</h3>
+
+      <p class="def-text">
+        <b>تعريف المحاسبة:</b> المحاسبة هي علم يهتم بتسجيل و<span class="hl hl-asset">تبويب</span> و<span class="hl hl-capital">تلخيص</span> البيانات المالية، ثم عرض القوائم المالية للمستفيدين الداخليين والخارجيين لاتخاذ القرارات. وهي تساعد المنشأة على معرفة هل حققت <span class="hl hl-profit">ربحاً</span> أم <span class="hl hl-loss">خسارة</span> خلال فترة مالية معينة.
+      </p>
+
+      <p class="def-text">
+        <b>المستفيدون الداخليون:</b> وهم من يعملون داخل المنشأة، مثل: <span class="hl hl-manager">المدير</span> (لاتخاذ القرارات التشغيلية والإدارية)، والمالك (لمتابعة أداء استثماره ومعرفة حجم <span class="hl hl-profit">الربح</span> أو <span class="hl hl-loss">الخسارة</span>).
+      </p>
+
+      <p class="def-text">
+        <b>المستفيدون الخارجيون:</b> وهم من يتعاملون مع المنشأة من الخارج، مثل: <span class="hl hl-bank">البنوك</span> (للتأكد من قدرة المنشأة على سداد القروض)، و<span class="hl hl-client">العملاء</span> والموردون والمستثمرون المحتملون.
+      </p>
+
+      <div class="def-grid">
+        <div class="def-card green">
+          <h4>📋 القوائم المالية الأربع</h4>
+          <ul>
+            <li>قائمة الدخل (الأرباح والخسائر)</li>
+            <li>قائمة التغير في رأس المال / حقوق الملكية</li>
+            <li>قائمة التدفقات النقدية</li>
+            <li>قائمة المركز المالي (الميزانية)</li>
+          </ul>
+        </div>
+        <div class="def-card">
+          <h4>🏠 المستفيدون الداخليون</h4>
+          <ul>
+            <li>المدير</li>
+            <li>المالك</li>
+          </ul>
+        </div>
+        <div class="def-card orange">
+          <h4>🌍 المستفيدون الخارجيون</h4>
+          <ul>
+            <li>البنوك</li>
+            <li>العملاء</li>
+            <li>الموردون والمستثمرون</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- شرح السبورة -->
+    <div class="content-block">
+      <h3>🖊️ شرح السبورة - المعادلة المحاسبية والحسابات</h3>
+
+      <h4 style="margin-bottom:.6rem;font-weight:800;">أولاً: المعادلة المحاسبية الأساسية</h4>
+      <div class="table-wrap" style="margin-bottom:1.6rem;">
+        <table>
+          <thead>
+            <tr><th>الطرف الأيمن</th><th>علاقة</th><th>الطرف الأيسر</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>الأصول</b> (Assets) = ما تملكه المنشأة</td>
+              <td>=</td>
+              <td><b>الالتزامات</b> (Liabilities) + <b>حقوق الملكية</b> (Equity)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 style="margin-bottom:.6rem;font-weight:800;">ثانياً: تعريفات الحسابات الثلاثة</h4>
+      <div class="table-wrap" style="margin-bottom:1.6rem;">
+        <table>
+          <thead>
+            <tr><th>الحساب</th><th>التعريف</th><th>أمثلة</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>الأصول</b></td>
+              <td>كل ما تملكه المنشأة من موارد اقتصادية تُستخدم في النشاط وتُتوقع منها منافع مستقبلية</td>
+              <td>النقدية، البنك، المخزون، الأثاث، السيارات، الآلات</td>
+            </tr>
+            <tr>
+              <td><b>الالتزامات</b></td>
+              <td>التزامات مالية على المنشأة تجاه الغير (ديون مستحقة السداد)</td>
+              <td>الدائنون (الموردون)، قروض البنوك، مصروفات مستحقة</td>
+            </tr>
+            <tr>
+              <td><b>حقوق الملكية</b></td>
+              <td>حق المالك في المنشأة = الأصول ناقص الالتزامات (صافي الأصول)</td>
+              <td>رأس المال المدفوع، الأرباح المحتجزة</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 style="margin-bottom:.6rem;font-weight:800;">ثالثاً: قواعد المدين والدائن</h4>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>الحساب</th><th>عند الزيادة</th><th>عند النقصان</th><th>الرصيد الطبيعي</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>الأصول</b></td>
+              <td>يُسجَّل <b>مدين (Dr)</b> ✅</td>
+              <td>يُسجَّل <b>دائن (Cr)</b> ⬅️</td>
+              <td>مدين (دائماً)</td>
+            </tr>
+            <tr>
+              <td><b>الالتزامات</b></td>
+              <td>يُسجَّل <b>دائن (Cr)</b> ⬅️</td>
+              <td>يُسجَّل <b>مدين (Dr)</b> ✅</td>
+              <td>دائن (دائماً)</td>
+            </tr>
+            <tr>
+              <td><b>حقوق الملكية</b></td>
+              <td>يُسجَّل <b>دائن (Cr)</b> ⬅️</td>
+              <td>يُسجَّل <b>مدين (Dr)</b> ✅</td>
+              <td>دائن (دائماً)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- الآلة الحاسبة المحاسبية -->
+    <div class="content-block">
+      <h3>🧮 الآلة الحاسبة المحاسبية المصغرة</h3>
+      <div class="calc-grid">
+        <div class="calc-box">
+          <input type="text" class="calc-display" id="calcDisplay" value="0" readonly>
+          <div class="calc-keys">
+            <button class="calc-key clear" onclick="calcClear()">C</button>
+            <button class="calc-key" onclick="calcInput('(')">(</button>
+            <button class="calc-key" onclick="calcInput(')')">)</button>
+            <button class="calc-key op" onclick="calcInput('/')">÷</button>
+            <button class="calc-key" onclick="calcInput('7')">7</button>
+            <button class="calc-key" onclick="calcInput('8')">8</button>
+            <button class="calc-key" onclick="calcInput('9')">9</button>
+            <button class="calc-key op" onclick="calcInput('*')">×</button>
+            <button class="calc-key" onclick="calcInput('4')">4</button>
+            <button class="calc-key" onclick="calcInput('5')">5</button>
+            <button class="calc-key" onclick="calcInput('6')">6</button>
+            <button class="calc-key op" onclick="calcInput('-')">−</button>
+            <button class="calc-key" onclick="calcInput('1')">1</button>
+            <button class="calc-key" onclick="calcInput('2')">2</button>
+            <button class="calc-key" onclick="calcInput('3')">3</button>
+            <button class="calc-key op" onclick="calcInput('+')">+</button>
+            <button class="calc-key" onclick="calcInput('0')">0</button>
+            <button class="calc-key" onclick="calcInput('.')">.</button>
+            <button class="calc-key" onclick="calcDel()">⌫</button>
+            <button class="calc-key eq" onclick="calcEquals()">=</button>
+          </div>
+        </div>
+        <div class="calc-box">
+          <h4 style="font-weight:800;margin-bottom:1rem;">⚖️ حاسبة المعادلة المحاسبية</h4>
+          <label style="display:block;font-weight:700;font-size:.9rem;margin-bottom:.3rem;">الأصول (Assets)</label>
+          <input type="number" id="eqAssets" placeholder="مثال: 50000" style="width:100%;padding:.7rem 1rem;border-radius:10px;border:2px solid var(--border);background:var(--bg-card);color:var(--text);font-family:inherit;font-size:1rem;margin-bottom:.9rem;">
+          <label style="display:block;font-weight:700;font-size:.9rem;margin-bottom:.3rem;">الالتزامات (Liabilities)</label>
+          <input type="number" id="eqLiab" placeholder="مثال: 20000" style="width:100%;padding:.7rem 1rem;border-radius:10px;border:2px solid var(--border);background:var(--bg-card);color:var(--text);font-family:inherit;font-size:1rem;margin-bottom:.9rem;">
+          <label style="display:block;font-weight:700;font-size:.9rem;margin-bottom:.3rem;">حقوق الملكية (Equity)</label>
+          <input type="number" id="eqEquity" placeholder="مثال: 30000" style="width:100%;padding:.7rem 1rem;border-radius:10px;border:2px solid var(--border);background:var(--bg-card);color:var(--text);font-family:inherit;font-size:1rem;margin-bottom:1rem;">
+          <button class="btn btn-primary" style="width:100%;justify-content:center;padding:.8rem;" onclick="calcEquation()">احسب المعادلة</button>
+          <div id="eqResult" style="margin-top:1rem;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- التمارين التفاعلية -->
+    <div class="content-block">
+      <h3>✏️ تمارين ومسألة عملية تفاعلية - المعادلة المحاسبية</h3>
+
+      <div class="quiz-q">
+        <h4>س1: إذا كانت الأصول = 80,000 ج والالتزامات = 30,000 ج، فما قيمة حقوق الملكية؟</h4>
+        <button class="quiz-opt" onclick="checkAnswer(this,true,'أحسنت! حقوق الملكية = الأصول - الالتزامات = 80,000 - 30,000 = 50,000 ج ✅')">50,000 ج</button>
+        <button class="quiz-opt" onclick="checkAnswer(this,false,'غير صحيح.. تذكر: حقوق الملكية = الأصول - الالتزامات')">110,000 ج</button>
+        <button class="quiz-opt" onclick="checkAnswer(this,false,'غير صحيح.. راجع المعادلة المحاسبية مرة أخرى')">30,000 ج</button>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <div class="quiz-q">
+        <h4>س2: اشترت المنشأة أثاثاً بمبلغ 10,000 ج نقداً. ما أثر العملية على المعادلة؟</h4>
+        <button class="quiz-opt" onclick="checkAnswer(this,true,'صحيح! الأصول لا تتغير إجمالاً: زاد أصل (الأثاث) ونقص أصل (النقدية) بنفس المبلغ ✅')">زيادة أصل (الأثاث) ونقصان أصل (النقدية) بذات المقدار</button>
+        <button class="quiz-opt" onclick="checkAnswer(this,false,'غير صحيح.. الدفع النقدي لا يخلق التزاماً')">زيادة الأصول وزيادة الالتزامات</button>
+        <button class="quiz-opt" onclick="checkAnswer(this,false,'غير صحيح.. المعادلة يجب أن تظل متوازنة دائماً')">نقصان إجمالي الأصول بمقدار 10,000 ج</button>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <div class="quiz-q">
+        <h4>س3: حصلت المنشأة على قرض بنك بمبلغ 50,000 ج أودع في البنك. ما أثر العملية؟</h4>
+        <button class="quiz-opt" onclick="checkAnswer(this,false,'غير صحيح.. القرض بنكي وليس نقداً من رأس المال')">زيادة الأصول (البنك) وزيادة حقوق الملكية</button>
+        <button class="quiz-opt" onclick="checkAnswer(this,true,'ممتاز! البنك أصل زاد، والقرض التزام زاد: المعادلة متوازنة ✅')">زيادة الأصول (البنك) وزيادة الالتزامات (القرض)</button>
+        <button class="quiz-opt" onclick="checkAnswer(this,false,'غير صحيح.. إيداع القرض زاد رصيد البنك (أصل)')">زيادة الالتزامات فقط دون تغيير الأصول</button>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <div class="quiz-q">
+        <h4>س4: أي مما يلي يُعتبر من الأصول؟</h4>
+        <button class="quiz-opt" onclick="checkAnswer(this,false,'غير صحيح.. الموردون دائنون أي التزامات على المنشأة')">الموردون (الدائنون)</button>
+        <button class="quiz-opt" onclick="checkAnswer(this,true,'أحسنت! المخزون من الأصول المتداولة ✅')">المخزون (البضاعة)</button>
+        <button class="quiz-opt" onclick="checkAnswer(this,false,'غير صحيح.. القروض البنكية التزامات مستحقة')">قرض البنك</button>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <div class="quiz-q">
+        <h4>س5: عند زيادة الالتزامات، يُسجَّل الحساب في جانب:</h4>
+        <button class="quiz-opt" onclick="checkAnswer(this,false,'غير صحيح.. الأصول هي التي تزيد في الجانب المدين')">المدين (Dr)</button>
+        <button class="quiz-opt" onclick="checkAnswer(this,true,'رائع! الالتزامات طبيعتها دائنة وتزيد في الجانب الدائن ✅')">الدائن (Cr)</button>
+        <button class="quiz-opt" onclick="checkAnswer(this,false,'غير صحيح.. لا يوجد جانب ثالث في القيد المزدوج')">لا يُسجَّل أصلاً</button>
+        <div class="quiz-feedback"></div>
+      </div>
+
+      <div class="quiz-score" id="quizScore"></div>
+    </div>
+
+    <!-- كورسات وفيديو -->
+    <div class="content-block">
+      <h3>🎬 كورسات وأساسيات للفهم العميق</h3>
+      <div class="video-card">
+        <div class="video-thumb" onclick="openVideo()">
+          <img src="https://img.youtube.com/vi/IyN-mvmXpMk/maxresdefault.jpg" alt="شرح المحاسبة المالية للمبتدئين" onerror="this.src='https://img.youtube.com/vi/IyN-mvmXpMk/hqdefault.jpg'">
+          <div class="play-overlay">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="video-info">
+          <div>
+            <h4>شرح المحاسبة المالية للمبتدئين - المحاضرة الأولى</h4>
+            <p>فيديو تأسيسي يشرح المفاهيم الأساسية للمحاسبة بشكل مبسط</p>
+          </div>
+          <button class="btn-watch" onclick="openVideo()">▶ مشاهدة مباشرة</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ الفوتر ============ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">🎓 منصة الفرقة الأولى - نظم معلومات إدارية</div>
+      <p>المعهد العالي للحاسبات وتكنولوجيا المعلومات بالشروق | المجموعة ج</p>
+      <p style="margin-top:.6rem;font-weight:800;color:var(--text);">تم التطوير بواسطة سلطان | نظم المعلومات الإدارية 🖤</p>
+    </div>
+    <div class="qr-box">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=https%3A%2F%2Fsultaaan11.github.io%2FMy-SochiaaL%2F" alt="QR Code - حسابات المطور">
+      <span>📱DeV.SulTaaN </span>
+    </div>
+    <div>
+      <button class="share-btn" onclick="sharePlatform()">🔗 مشاركة المنصة</button>
+    </div>
+  </div>
+</footer>
+
+<!-- التوست -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================
+   1) نظام التنقل بين الصفحات
+============================================ */
+function goPage(pageId){
+  document.querySelectorAll('.page').forEach(function(p){
+    p.classList.remove('active');
+  });
+  document.getElementById('page-' + pageId).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.page === pageId);
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ============================================
+   2) نظام الوضع الداكن والفاتح + LocalStorage
+============================================ */
+var themeToggleBtn = document.getElementById('themeToggle');
+
+function applyTheme(theme){
+  document.documentElement.setAttribute('data-theme', theme);
+  themeToggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('platform-theme', theme);
+}
+
+function toggleTheme(){
+  var current = document.documentElement.getAttribute('data-theme');
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+}
+
+(function initTheme(){
+  var saved = localStorage.getItem('platform-theme');
+  if(saved){
+    applyTheme(saved);
+  } else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+    applyTheme('dark');
+  }
+})();
+
+/* ============================================
+   3) نظام التوست
+============================================ */
+var toastTimer;
+function showToast(msg){
+  var toast = document.getElementById('toast');
+  toast.innerHTML = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){
+    toast.classList.remove('show');
+  }, 2600);
+}
+
+/* ============================================
+   4) نظام المواد والمحاضرات (Staggered Animation)
+============================================ */
+var courses = [
+  {name:'مبادئ المحاسبة المالية', emoji:'🧮'},
+  {name:'مبادئ اقتصاد', emoji:'📊'},
+  {name:'إدارة أعمال', emoji:'💼'},
+  {name:'لغة أجنبية 1', emoji:'🗣️'},
+  {name:'مبادئ القانون', emoji:'⚖️'}
+];
+
+var currentCourse = -1;
+
+function openCourse(index){
+  var panel = document.getElementById('lecturesPanel');
+  var list = document.getElementById('lectureList');
+  var title = document.getElementById('lecturesTitle');
+
+  if(currentCourse === index && panel.classList.contains('show')){
+    panel.classList.remove('show');
+    currentCourse = -1;
+    return;
+  }
+
+  currentCourse = index;
+  title.innerHTML = courses[index].emoji + ' محاضرات مادة: ' + courses[index].name;
+  list.innerHTML = '';
+
+  for(var i = 1; i <= 10; i++){
+    var isOpen = (index === 0 && i === 1);
+    var item = document.createElement('div');
+    item.className = 'lecture-item' + (isOpen ? '' : ' locked');
+    item.innerHTML =
+      '<div class="lec-name"><span class="lec-num">' + i + '</span> المحاضرة ' + toArabicOrdinal(i) + '</div>' +
+      '<span class="status-chip ' + (isOpen ? 'status-open' : 'status-soon') + '">' +
+      (isOpen ? '✅ متاحة الآن' : '🔒 قريباً') + '</span>';
+    item.style.transition = 'opacity .45s ease, transform .45s ease';
+    (function(n, open, courseIdx){
+      item.addEventListener('click', function(){
+        if(open){
+          goPage('lecture');
+        } else {
+          showToast('⏳ قريباً جداً... جارٍ تجهيز المحاضرة');
+        }
+      });
+    })(i, isOpen, index);
+    list.appendChild(item);
+  }
+
+  panel.classList.add('show');
+  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+
+  var items = list.querySelectorAll('.lecture-item');
+  items.forEach(function(el, idx){
+    setTimeout(function(){
+      el.classList.add('anim-in');
+    }, 90 * idx + 60);
+  });
+}
+
+function toArabicOrdinal(n){
+  var names = ['الأولى','الثانية','الثالثة','الرابعة','الخامسة','السادسة','السابعة','الثامنة','التاسعة','العاشرة'];
+  return names[n - 1];
+}
+
+/* ============================================
+   5) الآلة الحاسبة العادية
+============================================ */
+var calcDisplay = document.getElementById('calcDisplay');
+
+function calcInput(val){
+  if(calcDisplay.value === '0' && val !== '(' && val !== ')'){
+    calcDisplay.value = val;
+  } else {
+    calcDisplay.value += val;
+  }
+}
+
+function calcClear(){
+  calcDisplay.value = '0';
+}
+
+function calcDel(){
+  var v = calcDisplay.value;
+  calcDisplay.value = v.length > 1 ? v.slice(0, -1) : '0';
+}
+
+function calcEquals(){
+  try{
+    var expr = calcDisplay.value.replace(/÷/g,'/').replace(/×/g,'*').replace(/−/g,'-');
+    var result = Function('"use strict";return (' + expr + ')')();
+    if(result === undefined || result === null || !isFinite(result) || isNaN(result)){
+      calcDisplay.value = 'خطأ';
+    } else {
+      calcDisplay.value = Math.round(result * 1000000) / 1000000;
+    }
+  }catch(e){
+    calcDisplay.value = 'خطأ';
+  }
+}
+
+/* ============================================
+   6) حاسبة المعادلة المحاسبية
+============================================ */
+function calcEquation(){
+  var a = parseFloat(document.getElementById('eqAssets').value);
+  var l = parseFloat(document.getElementById('eqLiab').value);
+  var e = parseFloat(document.getElementById('eqEquity').value);
+  var box = document.getElementById('eqResult');
+
+  if(isNaN(a) || isNaN(l) || isNaN(e)){
+    box.innerHTML = '<div class="calc-result-item"><span style="color:#dc2626;font-weight:800;">⚠️ من فضلك أدخل القيم الثلاث كاملة</span></div>';
+    return;
+  }
+
+  var balance = Math.abs(a - (l + e)) < 0.01;
+  var html = '';
+  html += '<div class="calc-result-item"><span>الأصول</span><b>' + formatNum(a) + '</b></div>';
+  html += '<div class="calc-result-item"><span>الالتزامات + حقوق الملكية</span><b>' + formatNum(l + e) + '</b></div>';
+  if(balance){
+    html += '<div class="calc-result-item" style="border-color:#16a34a;background:rgba(34,197,94,.10);"><span style="color:#16a34a;font-weight:800;">✅ المعادلة متوازنة</span><b style="color:#16a34a;">صحيحة</b></div>';
+  } else {
+    html += '<div class="calc-result-item" style="border-color:#dc2626;background:rgba(239,68,68,.08);"><span style="color:#dc2626;font-weight:800;">❌ المعادلة غير متوازنة</span><b style="color:#dc2626;">فرق: ' + formatNum(Math.abs(a - (l + e))) + '</b></div>';
+  }
+  box.innerHTML = html;
+}
+
+function formatNum(n){
+  return n.toLocaleString('en-US') + ' ج';
+}
+
+/* ============================================
+   7) الاختبار التفاعلي
+============================================ */
+var quizAnswered = 0;
+var quizCorrect = 0;
+
+function checkAnswer(btn, correct, msg){
+  var q = btn.closest('.quiz-q');
+  if(q.dataset.done === '1') return;
+
+  q.dataset.done = '1';
+  var opts = q.querySelectorAll('.quiz-opt');
+  opts.forEach(function(o){ o.disabled = true; });
+
+  if(correct){
+    btn.classList.add('correct');
+    quizCorrect++;
+  } else {
+    btn.classList.add('wrong');
+    opts.forEach(function(o){
+      if(o.getAttribute('onclick') && o.getAttribute('onclick').indexOf('true') !== -1){
+        o.classList.add('correct');
+      }
+    });
+  }
+
+  var fb = q.querySelector('.quiz-feedback');
+  fb.textContent = msg;
+  fb.className = 'quiz-feedback ' + (correct ? 'ok' : 'no');
+
+  quizAnswered++;
+  if(quizAnswered === 5){
+    var scoreBox = document.getElementById('quizScore');
+    var pct = Math.round((quizCorrect / 5) * 100);
+    var msg2 = quizCorrect === 5 ? '🏆 ممتاز! إتقان كامل للمحاضرة' :
+               quizCorrect >= 3 ? '👍 جيد جداً! راجع الأسئلة الخاطئة' :
+               '📚 راجع شرح السبورة وحاول مرة أخرى';
+    scoreBox.innerHTML = 'نتيجتك النهائية: ' + quizCorrect + ' / 5 (' + pct + '%) — ' + msg2;
+    scoreBox.classList.add('show');
+  }
+}
+
+/* ============================================
+   8) فتح فيديو يوتيوب
+============================================ */
+function openVideo(){
+  window.open('https://www.youtube.com/results?search_query=%D8%B4%D8%B1%D8%AD+%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D8%B3%D8%A8%D8%A9+%D8%A7%D9%84%D9%85%D8%A7%D9%84%D9%8A%D8%A9+%D9%84%D9%84%D9%85%D8%A8%D8%AA%D8%AF%D8%A6%D9%8A%D9%86', '_blank');
+}
+
+/* ============================================
+   9) زر المشاركة / نسخ الرابط
+============================================ */
+function sharePlatform(){
+  var shareData = {
+    title: 'منصة الفرقة الأولى - نظم معلومات إدارية',
+    text: '🎓 منصة طلاب الفرقة الأولى - نظم معلومات إدارية (المجموعة ج) | جدول المحاضرات والمواد الدراسية',
+    url: window.location.href
+  };
+
+  if(navigator.share){
+    navigator.share(shareData).catch(function(){});
+  } else if(navigator.clipboard){
+    navigator.clipboard.writeText(window.location.href).then(function(){
+      showToast('✅ تم نسخ رابط المنصة بنجاح! شاركه مع زمايلك');
+    }).catch(function(){
+      fallbackCopy();
+    });
+  } else {
+    fallbackCopy();
+  }
+}
+
+function fallbackCopy(){
+  var temp = document.createElement('textarea');
+  temp.value = window.location.href;
+  document.body.appendChild(temp);
+  temp.select();
+  try{
+    document.execCommand('copy');
+    showToast('✅ تم نسخ رابط المنصة بنجاح! شاركه مع زمايلك');
+  }catch(e){
+    showToast(' file:///D:/%D8%B4%D8%BA%D9%84/MiS/index.html');
+  }
+  document.body.removeChild(temp);
+}
+</script>
+</body>
+</html>
